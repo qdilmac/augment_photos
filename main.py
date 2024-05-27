@@ -37,7 +37,7 @@ def decrease_brightness(image, value=30):
 def add_noise(image):
     row, col, ch = image.shape
     s_vs_p = 0.5
-    amount = 0.004
+    amount = 0.01
     out = np.copy(image)
     num_salt = np.ceil(amount * image.size * s_vs_p)
     coords = [np.random.randint(0, i - 1, int(num_salt)) for i in image.shape]
