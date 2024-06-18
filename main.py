@@ -75,7 +75,30 @@ def augment_images():
             cv2.imwrite(path + "/" + c + "/" + img.split(".")[0] + "_5.jpg", decrease_brightness(image))
             cv2.imwrite(path + "/" + c + "/" + img.split(".")[0] + "_6.jpg", add_noise(image))
 
+def only_resize():
+    for c in classes:
+        print("Sınıf: ", c)
+        images = os.listdir(path + "/" + c)
+        for img in images:
+            image = cv2.imread(path + "/" + c + "/" + img)
+            image = resize_image(image)
+            cv2.imwrite(path + "/" + c + "/" + img, image)
+
+# -> rename files to given name (such as tennisball) and add number for each end of the file            
+def rename_files(custom_name):
+    for c in classes:
+        print("Class: ", c)
+        class_path = os.path.join(path, c)
+        images = os.listdir(class_path)
+        for i, img in enumerate(images):
+            old_path = os.path.join(class_path, img)
+            new_path = os.path.join(class_path, f"{custom_name}_{i}.jpg")
+            os.rename(old_path, new_path)
+            print(f"Renamed {old_path} to {new_path}")
 
 if __name__ == "__main__":
-    augment_images()
+    # augment_images()
+    # only_resize()
+    custom_name = "tennisball"
+    rename_files(custom_name)
     print("İşlem tamamlandı.")
